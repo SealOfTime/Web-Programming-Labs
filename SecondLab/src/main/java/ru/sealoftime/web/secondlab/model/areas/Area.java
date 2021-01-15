@@ -3,7 +3,7 @@ package ru.sealoftime.web.secondlab.model.areas;
 import ru.sealoftime.web.secondlab.model.Point;
 
 public interface Area {
-    boolean checkIfIn(Point p);
+    boolean checkIfContains(Point p);
 
     void scale(double scale);
 }

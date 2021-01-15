@@ -4,11 +4,54 @@
          xsi:schemaLocation="http://xmlns.jcp.org/xml/ns/javaee
                       http://xmlns.jcp.org/xml/ns/javaee/web-app_4_0.xsd"
          version="4.0">
-    <security-constraint>
+    <servlet>
+        <servlet-name>ControllerServlet</servlet-name>
+        <servlet-class>ru.sealoftime.web.secondlab.ControllerServlet</servlet-class>
+    </servlet>
+    <servlet-mapping>
+        <servlet-name>ControllerServlet</servlet-name>
+        <url-pattern>/</url-pattern>
+    </servlet-mapping>
+
+<!--    <servlet>
+        <servlet-name>AreaCheckServlet</servlet-name>
+        <servlet-class>ru.sealoftime.web.secondlab.AreaCheckServlet</servlet-class>
+    </servlet>
+    <servlet-mapping>
+        <servlet-name>AreaCheckServlet</servlet-name>
+        <url-pattern>area</url-pattern>
+    </servlet-mapping>-->
+<!--    <security-constraint>
         <web-resource-collection>
-            <web-resource-name>Restricted AuthServlet</web-resource-name>
+            <web-resource-name>Restricted</web-resource-name>
             <url-pattern>/areaCheck</url-pattern>
         </web-resource-collection>
         <auth-constraint />
-    </security-constraint>
+    </security-constraint>-->
+
+    <filter>
+        <filter-name>AreaCheckConverter</filter-name>
+        <filter-class>ru.sealoftime.web.secondlab.AreaCheckConverterFilter</filter-class>
+        <init-param>
+            <param-name>error.nan</param-name>
+            <param-value>Must be a double!</param-value>
+        </init-param>
+
+    </filter>
+    <filter>
+        <filter-name>AreaCheckValidator</filter-name>
+        <filter-class>ru.sealoftime.web.secondlab.AreaCheckValidatorFilter</filter-class>
+    </filter>
+
+    <filter-mapping>
+        <filter-name>AreaCheckConverter</filter-name>
+        <servlet-name>AreaCheckServlet</servlet-name>
+        <dispatcher>FORWARD</dispatcher>
+    </filter-mapping>
+    <filter-mapping>
+        <filter-name>AreaCheckValidator</filter-name>
+        <servlet-name>AreaCheckServlet</servlet-name>
+        <dispatcher>FORWARD</dispatcher>
+    </filter-mapping>
+
 </web-app>

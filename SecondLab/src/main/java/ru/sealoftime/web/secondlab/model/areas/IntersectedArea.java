@@ -1,6 +1,5 @@
 package ru.sealoftime.web.secondlab.model.areas;
 
-import lombok.Data;
 import ru.sealoftime.web.secondlab.model.Point;
 
 import java.util.Set;
@@ -13,8 +12,8 @@ public class IntersectedArea implements Area {
     }
 
     @Override
-    public boolean checkIfIn(Point p) {
-        return this.areas.stream().anyMatch(area -> !area.checkIfIn(p));
+    public boolean checkIfContains(Point p) {
+        return this.areas.stream().anyMatch(area -> !area.checkIfContains(p));
     }
 
     @Override

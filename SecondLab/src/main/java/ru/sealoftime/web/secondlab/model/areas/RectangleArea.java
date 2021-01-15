@@ -12,7 +12,7 @@ public class RectangleArea implements Area{
     Point p2;
 
     @Override
-    public boolean checkIfIn(Point p) {
+    public boolean checkIfContains(Point p) {
         return  p1.getX() <= p.getX() &&
                 p2.getX() >= p.getX() &&
                 p1.getY() >= p.getY() &&

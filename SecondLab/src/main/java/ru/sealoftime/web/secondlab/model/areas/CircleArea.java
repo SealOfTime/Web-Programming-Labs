@@ -19,7 +19,7 @@ public class CircleArea implements Area {
     }
 
     @Override
-    public boolean checkIfIn(Point p) {
+    public boolean checkIfContains(Point p) {
         return ( p.getX()*p.getX() + p.getY()*p.getY() )<= this.radius*this.radius;
     }
 }

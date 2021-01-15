@@ -17,7 +17,7 @@ public class Point implements Serializable {
         this.y = this.y*scale;
     }
 
-    @DoubleInList({-2, -1.5, -1, -0.5, 0, 0.5, 1, 1.5, 2})
+    @DoubleInList(value={-2, -1.5, -1, -0.5, 0, 0.5, 1, 1.5, 2})
     double x;
 
     @DoubleMinMax(min=-3, max=3)

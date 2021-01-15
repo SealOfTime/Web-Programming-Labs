@@ -13,7 +13,7 @@ public class TriangleArea implements Area{
     Point p3;
 
     @Override
-    public boolean checkIfIn(Point p) {
+    public boolean checkIfContains(Point p) {
         return isPointInTriangle(p, p1, p2, p3);
     }
 
