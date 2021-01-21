@@ -1,0 +1,26 @@
+plugins {
+    id 'java'
+    id 'war'
+}
+
+repositories {
+    jcenter()
+    maven {
+        url "http://repository.primefaces.org"
+    }
+}
+
+dependencies {
+    compileOnly 'org.projectlombok:lombok:1.18.16'
+    annotationProcessor 'org.projectlombok:lombok:1.18.16'
+
+    providedCompile group: 'javax', name: 'javaee-api', version:'7.0'
+    runtimeOnly 'org.primefaces:primefaces:7.0'
+
+    testImplementation 'junit:junit:4.12'
+}
+
+task explodedWar(type: Sync) {
+    into "${buildDir}/exploded"
+    with war
+}

@@ -33,7 +33,7 @@ public class AreaCheckValidatorFilter implements Filter {
         var point = (Point) request.getAttribute("point");
         if(point != null) {
             for (var violation : validator.validate(point))//TODO: do not couple property name to the request parameter name
-                errors.put(violation.getConstraintDescriptor().getValidationAppliesTo().name(), violation.getMessage());
+                errors.put(violation.getPropertyPath().toString(), violation.getMessage());
         }
 
         var radius = (Double) request.getAttribute("radius");

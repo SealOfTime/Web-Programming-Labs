@@ -10,6 +10,7 @@ import ru.sealoftime.web.secondlab.services.JSONViews;
 
 import javax.ejb.EJB;
 import javax.servlet.ServletException;
+import javax.servlet.annotation.MultipartConfig;
 import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
@@ -17,6 +18,7 @@ import javax.servlet.http.HttpServletResponse;
 import java.io.IOException;
 import java.util.*;
 
+@MultipartConfig
 @WebServlet(urlPatterns = "/area", name="AreaCheckServlet")
 public class AreaCheckServlet extends HttpServlet {
 
@@ -31,7 +33,7 @@ public class AreaCheckServlet extends HttpServlet {
         System.out.println(errors);
 
         resp.setContentType("application/json");
-        if(!Objects.isNull(errors) && errors.isEmpty()){
+        if(Objects.nonNull(errors) && errors.isEmpty()){
             var point = (Point) req.getAttribute("point");
             System.out.println(point);
             var areaRadius = (Double) req.getAttribute("radius");

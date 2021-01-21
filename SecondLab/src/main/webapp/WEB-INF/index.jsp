@@ -3,11 +3,14 @@
 <html>
 <head>
     <title>Title</title>
+    <link rel="stylesheet" href="./styleshit.css">
     <jsp:useBean id="history" scope="session" class="ru.sealoftime.web.secondlab.model.History" type="ru.sealoftime.web.secondlab.model.History"/>
 </head>
 <body>
-    <form method="post" action="./" enctype="application/x-www-form-urlencoded">
-        <fieldset>
+    <output id="error-canvas"></output>
+    <canvas id="plot-canvas" width=400 height=400></canvas>
+    <form id="form-point" method="post" action="./">
+        <fieldset id="x-values">
             <legend>X: </legend>
             <% for(double x=-2; x <= 2; x+=0.5){%>
                 <label>
@@ -15,11 +18,14 @@
                     <input name="x" type="checkbox" value=<%=x%>>
                 </label>
             <%}%>
+            <output id="error-x"></output>
         </fieldset>
 
-        <label>Y: <input name="y" id="input-y" type="number" min="-3" max="3"></label>
+        <label>Y: <input name="y" id="y-value" type="number" min="-3" max="3" step="0.000000000000001" required>
+                  <output id="error-y"></output>
+        </label>
 
-        <fieldset>
+        <fieldset id="r-values">
             <legend>R: </legend>
             <% for(double r=1; r <= 3; r+=0.5){%>
                 <label>
@@ -27,11 +33,12 @@
                     <input type="radio" name="r" value=<%=r%>>
                 </label>
             <% } %>
+            <output id="error-r"></output>
         </fieldset>
 
         <input type="submit">
     </form>
-    <table>
+    <table id="results-table">
         <thead>
             <tr>
                 <td>X: </td>
@@ -49,5 +56,6 @@
             </tr>
         <% } %>
     </table>
+    <script src="./script.js"></script>
 </body>
 </html>

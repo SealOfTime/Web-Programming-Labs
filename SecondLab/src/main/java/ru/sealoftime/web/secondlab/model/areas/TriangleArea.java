@@ -24,18 +24,20 @@ public class TriangleArea implements Area{
         this.p3.mul(scale);
     }
 
-    private double calcTriArea(Point v1, Point v2, Point v3) {
-        double det = ((v1.getX() - v3.getX()) * (v2.getY() - v3.getY())) - ((v2.getX() - v3.getX()) * (v1.getY() - v3.getY()));
-        return (det / 2.0d);
-    }
 
     //Честно украдено со StackOverflow
     private boolean isPointInTriangle(Point point, Point v1, Point v2, Point v3) {
-        double totalArea = calcTriArea(v1, v2, v3);
-        double area1 = calcTriArea(point, v2, v3);
-        double area2 = calcTriArea(point, v1, v3);
-        double area3 = calcTriArea(point, v1, v2);
+        double area1 = sign(point, v1, v2);
+        double area2 = sign(point, v2, v3);
+        double area3 = sign(point, v3, v1);
+        boolean hasNeg = (area1 < 0) || (area2 < 0) || (area3 < 0);
+        boolean hasPos = (area1 > 0) || (area2 > 0) || (area3 > 0);
 
-        return !((area1 + area2 + area3) > totalArea);
+        return !(hasNeg && hasPos);
+    }
+
+    private double sign (Point p1, Point p2, Point p3)
+    {
+        return (p1.getX() - p3.getX()) * (p2.getY() - p3.getY()) - (p2.getX() - p3.getX()) * (p1.getY() - p3.getY());
     }
 }

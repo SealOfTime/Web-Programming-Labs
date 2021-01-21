@@ -13,7 +13,7 @@ public class IntersectedArea implements Area {
 
     @Override
     public boolean checkIfContains(Point p) {
-        return this.areas.stream().anyMatch(area -> !area.checkIfContains(p));
+        return this.areas.stream().allMatch(area -> area.checkIfContains(p));
     }
 
     @Override

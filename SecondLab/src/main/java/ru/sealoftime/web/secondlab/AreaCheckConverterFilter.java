@@ -48,9 +48,10 @@ public class AreaCheckConverterFilter implements Filter {
     @SuppressWarnings("unchecked")
     private Optional<Double> convert(String parameter, ServletRequest from) {
         try {
+            var val = from.getParameter(parameter);
+            System.out.println(parameter + "=" + val);
             return Optional.of(
-                    Double.valueOf(
-                            from.getParameter(parameter)));
+                    Double.valueOf(val));
         } catch (NumberFormatException | NullPointerException e) {
             var errors = (Map<String, String>) from.getAttribute("errors");
             errors.put(parameter, config.getInitParameter("error.nan"));
