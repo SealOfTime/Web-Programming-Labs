@@ -2,11 +2,10 @@ package ru.sealoftime.web.secondlab;
 
 
 import ru.sealoftime.web.secondlab.model.History;
-import ru.sealoftime.web.secondlab.services.HistoryService;
-import ru.sealoftime.web.secondlab.model.HistoryEntry;
 import ru.sealoftime.web.secondlab.model.Point;
 import ru.sealoftime.web.secondlab.services.AreaService;
 import ru.sealoftime.web.secondlab.services.JSONViews;
+import ru.sealoftime.web.secondlab.services.PointsService;
 
 import javax.ejb.EJB;
 import javax.servlet.ServletException;
@@ -23,26 +22,25 @@ import java.util.*;
 public class AreaCheckServlet extends HttpServlet {
 
     private @EJB JSONViews jsonView;
-//    private @EJB HistoryService historyService;
+    private @EJB PointsService pointsService;
     private @EJB AreaService areaService;
+//    private @EJB HistoryService historyService;
 
     @Override
-    protected void doPost(HttpServletRequest req, HttpServletResponse resp) throws IOException {
+    protected void doPost(HttpServletRequest req, HttpServletResponse resp) throws IOException, ServletException {
         @SuppressWarnings("unchecked")
         var errors = (Map<String, String>) req.getAttribute("errors");
         System.out.println(errors);
 
-        resp.setContentType("application/json");
+
         if(Objects.nonNull(errors) && errors.isEmpty()){
             var point = (Point) req.getAttribute("point");
             System.out.println(point);
             var areaRadius = (Double) req.getAttribute("radius");
             System.out.println(areaRadius);
-            var area = areaService.constructArea(areaRadius);
-            System.out.println(area);
-
-            var result = area.checkIfContains(point);
-            var entry = new HistoryEntry(point.getX(), point.getY(), areaRadius, result);
+//            var area = areaService.constructArea(areaRadius);
+//            System.out.println(area);
+            var entry = pointsService.checkIfPointInAreaOfRadius(point, areaRadius);
 
             var history = (History) req.getSession().getAttribute("history");
             if(history == null){
@@ -50,11 +48,12 @@ public class AreaCheckServlet extends HttpServlet {
                 req.getSession().setAttribute("history", history);
             }
             history.push(entry);
-
-            resp.setStatus(200);
-            resp.getWriter().write(jsonView.generatePointResponse(entry));
+            req.setAttribute("originalUri", req.getRequestURI());
+            req.getRequestDispatcher("/WEB-INF/area.jsp").forward(req, resp);
+            // resp.getWriter().write(jsonView.generatePointResponse(entry));
         }else {
             resp.setStatus(400);
+            resp.setContentType("application/json");
             if(errors == null)
                 resp.getWriter().write(jsonView.generateErrorMessageForNullErrors());
             else

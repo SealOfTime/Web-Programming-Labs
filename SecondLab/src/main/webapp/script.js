@@ -2,12 +2,13 @@ const canvas = document.getElementById("plot-canvas");
 const ctx = canvas.getContext('2d');
 const rVal = document.getElementsByName("r");
 const pointForm = document.getElementById("form-point");
+const points = [];
 
 canvas.addEventListener("click", (e)=>{
     const rect = canvas.getBoundingClientRect();
     const r = getRValue();
     const x = (e.clientX - rect.left-200)*r/150;
-    const y = (e.clientY - rect.top-200)*r/150;
+    const y = -(e.clientY - rect.top-200)*r/150;
     console.log("x: " + x + " y: " + y);
     let data = new FormData();
     data.append("x", x);
@@ -26,8 +27,6 @@ function getRValue(){
             value=radio.value;
     return value;
 }
-
-let points = [];
 
 pointForm.addEventListener("submit",  (e)=>{
     console.log(e);
@@ -51,12 +50,14 @@ function addNewPoint(point){
     let newRow = document
         .getElementById("results-table")
         .insertRow(-1);
-    let color = Math.floor(Math.random()*16777215).toString(16);
-    newRow.style.backgroundColor = "#" + color;
+    point.color = "#" + Math.floor(Math.random()*16777215).toString(16);
+    newRow.style.backgroundColor = point.color;
     newRow.insertCell(-1).textContent = point.x;
     newRow.insertCell(-1).textContent = point.y;
     newRow.insertCell(-1).textContent = point.r;
     newRow.insertCell(-1).textContent = point.isIn;
+    drawPoint(point.x, point.y, point.r, point.color, point.isIn);
+    points.push(point);
 }
 
 redrawCanvas();
@@ -69,9 +70,11 @@ function redrawCanvas(scale){
     ctx.fillStyle = "black";
     drawAxis(ctx);
     drawText(ctx, scale);
+    for(let point of points)
+        drawPoint(point.x, point.y, scale, point.color);
 }
 
-function drawPoint(x, y, r, color){
+function drawPoint(x, y, r, color, isIn){
     let scaleCoef = 150/r;
     const xOffset = 200;
     const yOffset = 200;
@@ -79,9 +82,9 @@ function drawPoint(x, y, r, color){
     let relY = -scaleCoef * y + yOffset;
 
     ctx.beginPath();
-    ctx.fillStyle = "#" + color;
-    ctx.strokeStyle = "white";
-    ctx.arc(relX, relY, 2, 0, 2*Math.PI);
+    ctx.fillStyle = color;
+    ctx.strokeStyle = isIn ? "green" : "red";
+    ctx.arc(relX, relY, 4, 0, 2*Math.PI);
     ctx.fill();
     ctx.stroke();
 }

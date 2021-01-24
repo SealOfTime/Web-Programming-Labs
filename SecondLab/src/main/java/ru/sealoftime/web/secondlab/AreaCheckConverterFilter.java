@@ -2,13 +2,10 @@ package ru.sealoftime.web.secondlab;
 
 import ru.sealoftime.web.secondlab.model.Point;
 
-import javax.inject.Inject;
 import javax.servlet.*;
-import javax.servlet.annotation.MultipartConfig;
 import java.io.IOException;
 import java.util.HashMap;
 import java.util.Map;
-import java.util.Objects;
 import java.util.Optional;
 
 public class AreaCheckConverterFilter implements Filter {

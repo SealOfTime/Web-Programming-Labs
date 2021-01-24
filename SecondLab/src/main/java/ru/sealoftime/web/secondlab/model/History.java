@@ -14,16 +14,15 @@ public class History {
 //    @EJB
 //    private HistoryService service;
 
-    private List<HistoryEntry> history;
+    private final LinkedList<HistoryEntry> history;
     public History(){
         this.history = new LinkedList<>();
     }
 
-    public List<HistoryEntry> getHistory(){
+    public LinkedList<HistoryEntry> getHistory(){
         return this.history;
     }
 
-    public void push(HistoryEntry entry){
-        this.history.add(entry);
+    public void push(HistoryEntry entry){ this.history.push(entry);
     }
 }

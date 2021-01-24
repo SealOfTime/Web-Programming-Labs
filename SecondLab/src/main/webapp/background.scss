@@ -1,0 +1,59 @@
+@mixin dots($count) {
+  $text-shadow: ();
+  @for $i from 0 through $count {
+    $text-shadow: $text-shadow,
+    (-.5+(random()) * 3) + em
+    (-.5+(random()) * 3) + em
+    7px
+    hsla(random() * 360, 100%, 50%,.9);
+  }
+  text-shadow: $text-shadow;
+}
+
+.background {
+  overflow: hidden;
+  background: #123;
+  display: block;
+  width: 100%;
+  height: 100%;
+  position: fixed;
+  top: 0;
+  z-index: -100;
+}
+
+.back, .front {
+  color: transparent;
+  font-size: 52px;
+  position: fixed;
+  top: 50%;
+  left: 50%;
+  width: 3em;
+  height: 3em;
+  content: '.';
+  mix-blend-mode: screen;
+  animation: 44s -27s move infinite ease-in-out alternate;
+}
+
+
+.back {
+  @include dots(40);
+  animation-duration: 44s;
+  animation-delay: -27s;
+}
+
+.front {
+  @include dots(40);
+  animation-duration: 43s;
+  animation-delay: -32s;
+}
+
+
+
+@keyframes move {
+  from {
+    transform: rotate(0deg) scale(12) translateX(-20px);
+  }
+  to {
+    transform: rotate(360deg) scale(18) translateX(20px);
+  }
+}
