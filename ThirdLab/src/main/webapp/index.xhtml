@@ -4,22 +4,33 @@
       xmlns:h="http://xmlns.jcp.org/jsf/html"
       xmlns:ui="http://xmlns.jcp.org/jsf/facelets"
       xmlns:f="http://xmlns.jcp.org/jsf/core"
-      xmlns:p="http://primefaces.org/ui"
-      style="width: 100%; height: 100%">
+      xmlns:icecore="http://icefaces.org/tld/core"
+      xmlns:ace="http://www.icefaces.org/icefaces/components"
+      xmlns:p="http://primefaces.org/ui">
+
 <h:head>
-    <style type="text/css">
-        .ui-analog-clock {
-            width: 200px;
-        }
-    </style>
+    <link type="text/css" rel="stylesheet" href="./styles/background.css"/>
+    <link type="text/css" rel="stylesheet" href="./styles/stylesheet.css"/>
+    <link type="text/css" rel="stylesheet" href="./styles/overclock.css"/>
 </h:head>
 
+<h:body>
+    <f:view>
+        <div class="background"></div>
+        <div class="middleground"></div>
+        <div class="frontground"></div>
+        <ui:include src="/template/header.xhtml"/>
 
-<h:body style="width: 100%; height: 100%; margin: 0">
-    <ui:include src="/template/header.xhtml"/>
-    <p:clock autoSync="true" syncInterval="13000" displayMode="analog"/>
-    <h:commandButton action="area" value="Blyat"/>
-    <h:commandLink value="Main Page" action="#{indexController.goToMainPage}" style="display: block; width: 100px; height: 100px; background-color: aliceblue"/>
+        <span id="clock">Please enable javascript in your browser</span>
+
+        <h:form id="form">
+            <h:link styleClass="enter-button"
+                    id="enter"
+                    value="Main Page"
+                    outcome="goToMainPage"/>
+        </h:form>
+
+        <h:outputScript library="js" name="clock.js"/>
+    </f:view>
 </h:body>
-
 </html>

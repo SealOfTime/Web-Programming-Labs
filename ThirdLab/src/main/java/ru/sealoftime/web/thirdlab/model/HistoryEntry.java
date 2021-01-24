@@ -7,8 +7,10 @@ import lombok.experimental.FieldDefaults;
 @AllArgsConstructor @NoArgsConstructor
 @FieldDefaults(level = AccessLevel.PRIVATE)
 public class HistoryEntry {
+    int id;
     double x;
     double y;
     double r;
-    boolean isInside;
+    String color;
+    boolean inside;
 }

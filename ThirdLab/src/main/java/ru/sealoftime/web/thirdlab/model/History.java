@@ -2,14 +2,17 @@ package ru.sealoftime.web.thirdlab.model;
 
 import javax.faces.bean.ManagedBean;
 import javax.faces.bean.SessionScoped;
+import javax.persistence.EntityManager;
+import javax.persistence.PersistenceContext;
 import java.util.LinkedList;
 import java.util.List;
 
 @ManagedBean(name="history")
 @SessionScoped
 public class History {
-//    @EJB
-//    private HistoryService service;
+
+
+    private EntityManager em;
 
     private List<HistoryEntry> history;
     public History(){

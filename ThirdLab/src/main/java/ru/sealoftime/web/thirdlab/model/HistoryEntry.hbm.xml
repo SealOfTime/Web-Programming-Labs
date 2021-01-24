@@ -1,0 +1,20 @@
+<?xml version="1.0"?>
+<!DOCTYPE hibernate-mapping PUBLIC
+        "-//Hibernate/Hibernate Mapping DTD 3.0//EN"
+        "http://www.hibernate.org/dtd/hibernate-mapping-3.0.dtd">
+
+<hibernate-mapping package="ru.sealoftime.web.thirdlab.model">
+
+    <class name="HistoryEntry" table="HISTORY">
+        <id name="id" column="ENTRY_ID">
+            <generator class="increment"/>
+        </id>
+<!--        <property name="date" type="timestamp" column="EVENT_DATE"/>-->
+        <property name="x" type="java.lang.Double" column="ENTRY_X"/>
+        <property name="y" type="java.lang.Double" column="ENTRY_Y"/>
+        <property name="r" type="java.lang.Double" column="ENTRY_R"/>
+        <property name="inside" type="boolean" column="ENTRY_IS_INSIDE"/>
+        <property name="color" type="java.lang.String" column="ENTRY_COLOR"/>
+    </class>
+
+</hibernate-mapping>

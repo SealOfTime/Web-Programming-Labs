@@ -4,10 +4,77 @@
 <html xmlns="http://www.w3.org/1999/xhtml"
       xmlns:h="http://xmlns.jcp.org/jsf/html"
       xmlns:ui="http://xmlns.jcp.org/jsf/facelets"
-      xmlns:f="http://xmlns.jcp.org/jsf/core">
+      xmlns:f="http://xmlns.jcp.org/jsf/core"
+      xmlns:icecore="http://www.icefaces.org/icefaces/core"
+      xmlns:ace="http://www.icefaces.org/icefaces/components"
+      xmlns:custom="http://java.sun.com/jsf/composite/tags">
+<h:head>
+    <style type="text/css">
+        .xVal table {
+            display: inline-block;
+        }
 
-<f:view>
-    <h:outputLabel value="Hello, world"/>
-</f:view>
+        .xVal td {
+            display: inline-block;
+        }
+
+        .xVal td label {
+            display: block;
+        }
+    </style>
+    <link type="text/css" rel="stylesheet" href="./styles/background.css"/>
+    <link type="text/css" rel="stylesheet" href="./styles/stylesheet.css"/>
+    <link type="text/css" rel="stylesheet" href="./styles/overclock.css"/>
+</h:head>
+
+<h:body>
+    <ui:include src="/template/header.xhtml"/>
+    <div class="background"></div>
+    <div class="middleground"></div>
+    <div class="frontground"></div>
+    <h:form id="form" styleClass="content">
+        <div class="area">
+            <custom:area id="pointArea" radius="#{areaController.r}"/>
+        </div>
+
+        <div class="point-form">
+                <div class="point-form-field">
+                    <h:outputLabel value="X:" for="xVal"/>
+                    <h:selectOneMenu id="xVal" styleClass="xVal" value="#{areaController.x}" required="true"
+                                     requiredMessage="X is required">
+                        <f:selectItems value="#{areaController.XValues}"/>
+                    </h:selectOneMenu>
+                    #{areaController.x}
+                    <h:message id="xValue" for="xVal"/>
+                </div>
+
+                <div class="point-form-field point-form-field-text">
+                    <h:outputLabel value="Y:" for="yVal"/>
+                    <h:inputText id="yVal" value="#{areaController.y}"
+                                 required="true" requiredMessage="Y is required"
+                                 converterMessage="Y must be a double value"
+                                 validatorMessage="Y must be between ${areaController.YMin} and ${areaController.YMax} inclusively"
+                                 maxlength="6">
+                        <f:validateDoubleRange minimum="${areaController.YMin}" maximum="${areaController.YMax}"/>
+                    </h:inputText>
+                    #{areaController.y}
+                    <h:message id="yValue" for="yVal"/>
+                </div>
+
+                <div class="point-form-field" id="rFormField">
+                    <h:outputLabel value="R:" for="rVal"/>
+                    <ace:sliderEntry id="rVal" styleClass="rVal" value="#{areaController.r}"
+                                     min="2" max="5" stepPercent="12">
+                        <f:ajax event="slide" render="@form :rFormField :rValue :pointArea"/>
+                    </ace:sliderEntry>
+                    #{areaController.r}
+                    <h:message id="rValue" for="rVal"/>
+                </div>
+
+            <h:commandButton action="#{areaController.test}" value="Submit"/>
+        </div>
+    </h:form>
+
+</h:body>
 
 </html>

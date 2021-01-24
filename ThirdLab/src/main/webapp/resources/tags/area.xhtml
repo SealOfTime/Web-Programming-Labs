@@ -1,0 +1,72 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
+        "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:h="http://xmlns.jcp.org/jsf/html"
+      xmlns:ui="http://xmlns.jcp.org/jsf/facelets"
+      xmlns:composite="http://java.sun.com/jsf/composite"
+      xmlns:f="http://xmlns.jcp.org/jsf/core">
+<f:view>
+    <composite:interface>
+        <composite:attribute name="radius" type="java.lang.Integer" default="0"/>
+        <!--<composite:attribute name="height" targets="svg-clock"/>
+        <composite:attribute name="width" targets="svg-clock"/>-->
+    </composite:interface>
+
+    <composite:implementation>
+        <svg xmlns="http://www.w3.org/2000/svg" id="plot-canvas" width="400" height="400" viewBox="-1.2 -1.2 2.4 2.4" fill="transparent" stroke-width="0.002" >
+            <line x1="0" x2="0" y1="-1.2" y2="1.2" stroke="black"></line>
+            <polyline points="-0.05 -1.1 0 -1.2 0.05 -1.1" stroke="black"></polyline>
+            <line x1="-1.2" x2="1.2" y1="0" y2="0" stroke="black"></line>
+            <polyline points="1.1 -0.05 1.2 0 1.1 0.05" stroke="black"></polyline>
+            <style>
+                svg line{
+                    stroke: black;
+                }
+                #svg-x, #svg-y, svg .vertical-label, svg .horizontal-label{
+                    fill: white;
+                    stroke: transparent;
+                    font-size: 0.1px;
+                }
+                svg .vertical-label{
+                    text-anchor: start;
+                    alignment-baseline: middle;
+                }
+                svg .horizontal-label{
+                    text-anchor: middle;
+                }
+                #second-quarter, #third-quarter, #fourth-quarter{
+                    stroke: black;
+                    fill: #aaf8
+                }
+                svg circle{
+                    stroke-width: 0.005;
+                    transform: translate(0, 0);
+                    transition: transform 0.3s ease;
+                }
+            </style>
+            <polygon id="second-quarter" points="-1 0 0 -0.5 0 0"></polygon>
+            <rect id="third-quarter" x="-1" y="0" width="1" height="1"></rect>
+            <path id="fourth-quarter" d="M0.5 0
+                                             A 0.5 0.5,0,0,1, 0 0.5
+                                             L0 0 Z"></path>
+            <text id="svg-x" x="1.15" y="0.1" font-size="0.1" fill="white" text-anchor="end">X</text>
+            <text id="r-x" x="1.0" y="0.1" class="horizontal-label">#{cc.attrs.radius != 0 ? cc.attrs.radius : "R"}</text>
+            <text id="r-x-half" x="0.5" y="0.1" class="horizontal-label">#{cc.attrs.radius != 0 ? cc.attrs.radius/2 : "R/2"}</text>
+            <text id="neg-r-x-half" x="-0.5" y="0.1" class="horizontal-label">#{cc.attrs.radius != 0 ? -cc.attrs.radius/2 : "-R/2"}</text>
+            <text id="neg-r-x" x="-1.0" y="0.1" class="horizontal-label">#{cc.attrs.radius != 0 ? -cc.attrs.radius : "-R"}</text>
+            <text id="svg-y" x="0.1" y="-1.15" font-size="0.1" fill="white" text-anchor="end" alignment-baseline="hanging">Y</text>
+            <text id="r-y" class="vertical-label" x="0.05" y="-1.0">#{cc.attrs.radius != 0 ? cc.attrs.radius : "R"}</text>
+            <text id="r-y-half" class="vertical-label" x="0.05" y="-0.5">#{cc.attrs.radius != 0 ? cc.attrs.radius/2 : "R/2"}</text>
+            <text id="neg-r-y-half" class="vertical-label" x="0.05" y="0.5">#{cc.attrs.radius != 0 ? -cc.attrs.radius/2 : "-R/2"}</text>
+            <text id="neg-r-y" class="vertical-label" x="0.05" y="1.0">#{cc.attrs.radius != 0 ? -cc.attrs.radius : "-R"}</text>
+
+            <g jsfc="ui:repeat" value="#{history.history}" var="point">
+                <circle cx="0" cy="0" r="0.02"
+                        fill="#{point.color}" stroke="#{point.inside ? 'green' : 'red'}"
+                        style="transform(#{point.x/areaController.r}, #{point.y/areaController.r}})"></circle>
+            </g>
+    </svg>
+    </composite:implementation>
+</f:view>
+</html>

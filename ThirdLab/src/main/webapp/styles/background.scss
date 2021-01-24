@@ -1,0 +1,91 @@
+$parallaxTime: 10s;
+
+@mixin static_animation($name){
+  @keyframes #{$name} {
+    from{
+      background-image: url("../imgs/#{$name}1.png");
+    }
+    50% {
+      background-image: url("../imgs/#{$name}2.png");
+    }
+    to{
+      background-image: url("../imgs/#{$name}3.png");
+    }
+  }
+}
+@mixin multiple_animations($list) {
+  $combined: '';
+
+  @for $i from 1 through length($list) {
+    $anim: nth($list, $i);
+
+    @if $i == length($list) {
+      $combined: $combined + $anim;
+    }
+    @else {
+      $combined: $combined + $anim + ',';
+    }
+  }
+
+  animation: unquote($combined);
+}
+
+@keyframes parallax {
+  from{
+    background-position-x: 0;
+  }
+  to{
+    background-position-x: 1024px;
+  }
+}
+
+%ground{
+  background: {
+    repeat: repeat-x;
+    origin: border-box;
+    position-x: 0;
+  };
+  width: 100%;
+  height: 100vh;
+  position: fixed;
+  z-index: -200;
+}
+
+.background{
+  @extend %ground;
+  @include static_animation(background);
+  @include multiple_animations((
+      background 0.5s infinite ease-in alternate,
+      parallax $parallaxTime infinite linear reverse));
+  background-position-y: bottom;
+}
+
+.middleground{
+  @extend %ground;
+  @include static_animation(middleground);
+  $animations: (
+          middleground 0.5s infinite ease-in alternate,
+          parallax $parallaxTime/1.25 infinite linear reverse);
+  @include multiple_animations($animations);
+
+  background-position-y: bottom;
+}
+
+.frontground{
+  @extend %ground;
+  background: {
+    image: url("../imgs/frontground.png");
+    position-y: 485px;};
+
+  animation: parallax $parallaxTime/1.5 infinite linear reverse;
+}
+
+body{
+  background:{
+    image: url("../imgs/sky_gradient.png");
+    size: contain;
+    repeat: repeat-x;
+    origin: border-box;
+  }
+}
+
