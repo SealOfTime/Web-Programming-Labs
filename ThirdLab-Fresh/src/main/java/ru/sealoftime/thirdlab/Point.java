@@ -13,7 +13,7 @@ public class Point implements Serializable, Comparable<Point>{
     @Id
     @GeneratedValue(strategy = GenerationType.AUTO)
     private int id;
-
+    
     private Double x;
     private Double y;
     private Double r;

@@ -5,7 +5,7 @@ svgLabels =document.getElementsByTagName("text");
 
 function sendData(e, plotCanvas){
     const rect = plotCanvas.getBoundingClientRect();
-    const r = parseInt(getRValue());
+    const r = parseFloat(getRValue());
     if(r && r !== 0) {
         const x = (e.clientX - rect.left - 200) * r / 160;
         if(x > 2 || x < -2){
@@ -34,7 +34,7 @@ function showModal(text){
     });
 }
 function getRValue(){
-    let rVal = document.getElementById("content:rVal_input").value;
+    let rVal = document.getElementById("content:rVal_input").value.replace(",", ".");
     document.getElementById("hidden:hiddenR").value = rVal;
     return rVal;
 }

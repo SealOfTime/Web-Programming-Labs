@@ -74,12 +74,12 @@
             </div>
 
             <h:commandButton action="#{areaController.test}" value="Submit">
-                <p:ajax event="click" process="@form" update="area @form"/>
+                <p:ajax event="click" process="@form" update="area @form table"/>
             </h:commandButton>
         </div>
     </h:form>
 
-    <p:dataTable var="point" value="#{history.history}">
+    <p:dataTable id="table" var="point" value="#{history.history}">
         <p:column headerText="X:">
             <h:outputText value="#{point.x}"/>
         </p:column>
@@ -99,7 +99,7 @@
         <h:inputHidden id="hiddenY" value="#{areaController.y}"/>
         <h:inputHidden id="hiddenR" value="#{areaController.r}"/>
         <h:commandButton id="hiddenSubmit" action="#{areaController.test}" value="Submit">
-            <p:ajax event="click" process="@form" update="@form content :content:area"/>
+            <p:ajax event="click" process="@form" update="@form content :content:area table"/>
         </h:commandButton>
     </h:form>
 
