@@ -1,0 +1,38 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
+        "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:h="http://xmlns.jcp.org/jsf/html"
+      xmlns:ui="http://xmlns.jcp.org/jsf/facelets"
+      xmlns:f="http://xmlns.jcp.org/jsf/core"
+      xmlns:ace="http://www.icefaces.org/icefaces/components">
+<h:head>
+    <meta http-equiv="Content-Type" content="text/html; charset=UTF8"/>
+    <title>Lab3</title>
+
+    <h:outputStylesheet library="styles" name="background.css"/>
+    <h:outputStylesheet library="styles" name="stylesheet.css"/>
+
+</h:head>
+
+<h:body id="body">
+    <div class="background"></div>
+    <div class="middleground"></div>
+    <div class="frontground"></div>
+
+    <div id="header">
+        <span>Выполнил: Вдовицын Матвей Валентинович</span>
+        <span>Группа: P3212</span>
+        <span>Вариант: 313882</span>
+    </div>
+
+    <span id="clock">Please enable javascript in your browser</span><br/>
+
+    <h:link styleClass="enter-button"
+            id="enter"
+            value="Main Page"
+            outcome="goMainPage"/>
+
+    <h:outputScript library="js" name="clock.js"/>
+</h:body>
+</html>

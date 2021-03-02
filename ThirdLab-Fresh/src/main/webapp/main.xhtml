@@ -1,0 +1,113 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:h="http://xmlns.jcp.org/jsf/html"
+      xmlns:f="http://xmlns.jcp.org/jsf/core"
+      xmlns:p="http://primefaces.org/ui"
+      xmlns:ui="http://xmlns.jcp.org/jsf/facelets"
+      xmlns:jsf="http://xmlns.jcp.org/jsf"
+      xmlns:custom="http://java.sun.com/jsf/composite/tags">
+
+<h:head>
+    <meta http-equiv="Content-Type" content="text/html; charset=UTF8"/>
+    <title>Lab3</title>
+
+    <h:outputStylesheet library="styles" name="background.css"/>
+    <h:outputStylesheet library="styles" name="stylesheet.css"/>
+
+</h:head>
+
+<h:body id="body">
+    <div class="background"></div>
+    <div class="middleground"></div>
+    <div class="frontground"></div>
+    <p:growl widgetVar="growl" />
+
+    <div id="header">
+        <span>Выполнил: Вдовицын Матвей Валентинович</span>
+        <span>Группа: P3212</span>
+        <span>Вариант: 31882</span>
+    </div>
+
+    <h:form id="content" styleClass="content">
+        <div jsf:id="area">
+            <custom:area/>
+        </div>
+
+        <div id="form" class="point-form">
+            <div class="point-form-field">
+                <h:outputLabel value="X:" for="xVal"/>
+                <h:selectOneMenu id="xVal" styleClass="xVal"
+                                 value="#{areaController.x}"
+                                 required="true" requiredMessage="X is required">
+                    <f:selectItems value="#{areaController.XValues}"/>
+                </h:selectOneMenu>
+                <h:outputText value="#{areaController.x}"/>
+                <h:message id="xValue" for="xVal"/>
+            </div>
+
+            <div class="point-form-field point-form-field-text">
+                <h:outputLabel value="Y:" for="yVal"/>
+                <h:inputText id="yVal" value="#{areaController.y}"
+                             required="true" requiredMessage="Y is required"
+                             converterMessage="Y must be a double value"
+                             validatorMessage="Y must be between -5 and 3 inclusively"
+                             maxlength="6">
+                    <f:validateDoubleRange minimum="-5" maximum="3"/>
+                </h:inputText>
+                <h:outputText value="#{areaController.y}"/>
+                <h:message id="yValue" for="yVal"/>
+            </div>
+
+            <div class="point-form-field" id="rFormField">
+                <h:outputLabel value="R:" for="rVal"/>
+
+                <p:slider for="rVal" styleClass="rVal" minValue="2" maxValue="5" step="0.25">
+                    <p:ajax event="slideEnd" update="area"/>
+                </p:slider>
+
+                <p:inputNumber id="rVal" styleClass="rValueInput"
+                               value="#{areaController.r}" minValue="2" maxValue="5" decimalPlaces="2">
+                    <p:ajax process="@this" update="area"/>
+                </p:inputNumber>
+            </div>
+
+            <h:commandButton action="#{areaController.test}" value="Submit">
+                <p:ajax event="click" process="@form" update="area @form"/>
+            </h:commandButton>
+        </div>
+    </h:form>
+
+    <p:dataTable var="point" value="#{history.history}">
+        <p:column headerText="X:">
+            <h:outputText value="#{point.x}"/>
+        </p:column>
+        <p:column headerText="Y:">
+            <h:outputText value="#{point.y}"/>
+        </p:column>
+        <p:column headerText="R:">
+            <h:outputText value="#{point.r}"/>
+        </p:column>
+        <p:column headerText="isInside:">
+            <h:outputText value="#{point.inside}"/>
+        </p:column>
+    </p:dataTable>
+
+    <h:form id="hidden" style="display: none;">
+        <h:inputHidden id="hiddenX" value="#{areaController.x}"/>
+        <h:inputHidden id="hiddenY" value="#{areaController.y}"/>
+        <h:inputHidden id="hiddenR" value="#{areaController.r}"/>
+        <h:commandButton id="hiddenSubmit" action="#{areaController.test}" value="Submit">
+            <p:ajax event="click" process="@form" update="@form content :content:area"/>
+        </h:commandButton>
+    </h:form>
+
+    <h:outputScript library="js" name="area.js"/>
+    <h:link styleClass="enter-button"
+            id="enter"
+            value="Index"
+            outcome="goBack"/>
+</h:body>
+
+</html>

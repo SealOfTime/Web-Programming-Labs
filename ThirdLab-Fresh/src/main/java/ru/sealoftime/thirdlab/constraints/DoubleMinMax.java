@@ -1,10 +1,12 @@
-package ru.sealoftime.web.thirdlab.constraints;
+package ru.sealoftime.thirdlab.constraints;
 
-import javax.validation.Constraint;
-import javax.validation.Payload;
+
+import jakarta.validation.Constraint;
+import jakarta.validation.Payload;
+
 import java.lang.annotation.*;
 
-@Constraint(validatedBy = {DoubleInListValidator.class})
+@Constraint(validatedBy = {DoubleMinMaxValidator.class})
 @Documented
 @Target({ElementType.METHOD,
         ElementType.FIELD,
@@ -12,9 +14,10 @@ import java.lang.annotation.*;
         ElementType.CONSTRUCTOR,
         ElementType.PARAMETER})
 @Retention(RetentionPolicy.RUNTIME)
-public @interface DoubleInList {
-    //List of doubles, in which the value must lay
-    double[] value();
+public @interface DoubleMinMax {
+
+    double max();
+    double min();
 
     String message() default "Not a valid value";
 
@@ -31,7 +34,7 @@ public @interface DoubleInList {
     @Retention(RetentionPolicy.RUNTIME)
     @Documented
     @interface List {
-        DoubleInList[] value();
+        DoubleMinMax[] value();
 
     }
 }

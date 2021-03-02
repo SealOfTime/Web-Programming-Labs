@@ -33,6 +33,7 @@
     <div class="middleground"></div>
     <div class="frontground"></div>
     <h:form id="form" styleClass="content">
+        <f:ajax render="@form">
         <div class="area">
             <custom:area id="pointArea" radius="#{areaController.r}"/>
         </div>
@@ -65,7 +66,7 @@
                     <h:outputLabel value="R:" for="rVal"/>
                     <ace:sliderEntry id="rVal" styleClass="rVal" value="#{areaController.r}"
                                      min="2" max="5" stepPercent="12">
-                        <f:ajax event="slide" render="@form :rFormField :rValue :pointArea"/>
+                        <f:ajax event="slide" render="@form rFormField rValue pointArea"/>
                     </ace:sliderEntry>
                     #{areaController.r}
                     <h:message id="rValue" for="rVal"/>
@@ -73,6 +74,7 @@
 
             <h:commandButton action="#{areaController.test}" value="Submit"/>
         </div>
+        </f:ajax>
     </h:form>
 
 </h:body>

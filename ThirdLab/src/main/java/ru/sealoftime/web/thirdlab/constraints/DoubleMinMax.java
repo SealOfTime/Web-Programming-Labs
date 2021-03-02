@@ -32,7 +32,7 @@ public @interface DoubleMinMax {
     @Retention(RetentionPolicy.RUNTIME)
     @Documented
     @interface List {
-        DoubleInList[] value();
+        DoubleMinMax[] value();
 
     }
 }
