@@ -1,0 +1,20 @@
+<main #main>
+    <app-window title="Register Form">
+        <form>
+            <div class="form-field">
+                <label for="username">Username: </label>
+                <input type="text" id="username" name="username" [formControl] = "username">/>
+            </div>
+            <div class="form-field">
+                <label for="password">Password: </label>
+                <input type="password" id="password" name="password" [formControl] = "password">/>
+            </div>
+            
+            <div class="form-buttons">
+                <button class="button button-primary" 
+                        (click)="register()">Register</button>
+            </div>
+            <a href="/login">Login</a>
+        </form>
+    </app-window>
+</main>

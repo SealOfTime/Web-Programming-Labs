@@ -1,0 +1,46 @@
+@mixin task-panel-gradient($bottom, $middle, $top){
+    background: rgb(25,65,165);
+    background: linear-gradient(0deg, $bottom 6%, $middle 80%, $top 99%, $middle 99%);    
+}
+
+$task-panel-bottom-color: #1941A5;
+$task-panel-middle-color: #235BD9;
+$task-panel-top-color: #4993E6;
+
+footer{
+    @include task-panel-gradient($task-panel-bottom-color, $task-panel-middle-color, $task-panel-top-color);
+    display: flex;
+    justify-content: space-between;
+    height: 5%;
+    color: white;
+
+    .start-menu-button{
+        background: {
+            image: url("/assets/start.png");
+            size: contain;
+            repeat: no-repeat;
+        }
+        border: none;
+        border-radius: 0;
+        width: 119px;
+        height: 100%;
+    } 
+    .footer-tray{
+        @include task-panel-gradient(#095BC9, #1187E4, #19B9F3);
+        border-left: 1px solid rgb(16, 66, 175);
+        box-shadow: rgb(24 187 255) 1px 0px 1px inset;
+
+        display: inline-block;
+        align-self: flex-end;
+        min-width: 93px;
+        height: 100%;
+        padding: 0 10px;
+
+        .footer-tray-time{
+            letter-spacing: 1px;
+        }
+    }
+    ul{
+        display: inline-block;
+    }
+}

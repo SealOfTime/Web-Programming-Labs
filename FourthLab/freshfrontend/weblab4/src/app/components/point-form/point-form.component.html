@@ -1,0 +1,33 @@
+<form>
+    <div>
+        <div class="form-row">
+            X:
+            <div *ngFor="let xVal of xPossible" class="field-row field-in-row">
+                <input type="radio" name="xVal"
+                       [id]="'radioX'+xVal" [value] = "xVal"
+                       [formControl] = "x">
+                <label [for]="'radioX'+xVal">{{xVal}}</label>
+            </div>
+        </div>
+
+        <div class="field-row form-row">
+            <label for="yVal">Y:</label>
+            <input id="yVal" type="text" name="yVal"
+                    [formControl]="y"/>
+        </div>
+        
+        <div class="form-row">
+            R:
+            <div *ngFor="let rVal of rPossible" class="field-row field-in-row">
+                <input type="radio" name="rVal" 
+                       [id]="'radioR'+rVal" [value] = "rVal"
+                       [formControl]="_r">
+                <label [for]="'radioR'+rVal">{{rVal}}</label>
+            </div>  
+        </div>      
+        <section class="field-row" style="justify-content: flex-end">
+            <button (click)="submit()">OK</button>
+            <button (click)="reset()">Cancel</button>
+          </section>
+    </div>
+</form>

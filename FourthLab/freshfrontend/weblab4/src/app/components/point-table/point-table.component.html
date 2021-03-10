@@ -1,0 +1,20 @@
+<table>
+    <thead>
+        <tr>
+            <td>Owner: </td>
+            <td>X: </td>
+            <td>Y: </td>
+            <td>R: </td>
+            <td>isInside: </td>
+        </tr>
+    </thead>
+    <tbody>
+        <tr *ngFor="let point of pointList">
+            <td>{{point.owner}}</td>
+            <td [style.background-color]="point.color">{{point.x}}</td>
+            <td [style.background-color]="point.color">{{point.y}}</td>
+            <td>{{point.r}}</td>
+            <td>{{point.inside}}</td>
+        </tr>
+    </tbody>
+</table>

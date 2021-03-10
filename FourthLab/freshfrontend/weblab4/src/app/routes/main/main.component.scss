@@ -1,0 +1,18 @@
+main{
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: space-around;
+    align-items: center;
+    align-content: space-around;
+    
+    background: {
+        image: url("/assets/wallpaper.jpg");
+        size: cover;
+        attachment: fixed;
+    }
+    min-height: 95%;
+    *{
+        margin-bottom: 15px;
+    }
+}
+

@@ -1,0 +1,22 @@
+<main>
+    Вдовицын Матвей Валентиович P3212 313816
+    <ng-container #error></ng-container>
+    <app-window title="Login Form">
+        <form>
+            <div class="form-field">
+                <label for="username">Username: </label>
+                <input type="text" id="username" name="username" [formControl] = "username">/>
+            </div>
+            <div class="form-field">
+                <label for="password">Password: </label>
+                <input type="password" id="password" name="password" [formControl] = "password">/>
+            </div>
+            
+            <div class="form-buttons">
+                <button class="button button-primary" 
+                        (click)="login()">Login</button>
+            </div>
+            <a href="/register">register</a>
+        </form>
+    </app-window>
+</main>

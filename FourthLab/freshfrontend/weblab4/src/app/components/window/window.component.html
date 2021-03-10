@@ -1,0 +1,15 @@
+<div class="window" [style]="{'width':width+'px','height':height+'px'}"
+     ngDraggable [handle]="handle">
+    <div #handle class="title-bar">
+      <img src={{icon}} width="16px" height="16px"/>
+      <div class="title-bar-text">{{title}}</div>
+      <div class="title-bar-controls">
+        <button aria-label="Minimize"></button>
+        <button aria-label="Maximize"></button>
+        <button aria-label="Close"></button>
+      </div>
+    </div>
+    <div class="window-body">
+        <ng-content></ng-content>
+    </div>
+</div>

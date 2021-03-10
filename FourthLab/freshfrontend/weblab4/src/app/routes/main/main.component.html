@@ -1,0 +1,17 @@
+<main>
+    <app-window title="Point Canvas">
+        <app-point-canvas [pointList]="points" [r]="r"></app-point-canvas>
+    </app-window>
+
+    <app-window title="Point Form">
+        <app-point-form [(r)]="r"></app-point-form>
+    </app-window>
+    
+    <app-window title="Point Table">
+        <app-point-table [pointList]="points"></app-point-table>
+    </app-window>
+
+    <!-- <app-window title="About"></app-window> -->
+</main>
+
+<app-taskbar (startMenu)="logout()"></app-taskbar>
